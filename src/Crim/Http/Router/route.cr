@@ -39,7 +39,7 @@ module Crim::Http::Router
 
     # used to store regex values for route parser
     def regex(key : String, val : String)
-      if !@regex_data.includes?(key)
+      if @regex_data.key_index(key).nil?
         @regex_data[key] = val
       end
       
@@ -48,7 +48,7 @@ module Crim::Http::Router
 
     # used to store default values when an optional value couldn't be found
     def default(key : String, val : String)
-      if !@default_data.includes?(key)
+      if @default_data.key_index(key).nil?
         @default_data[key] = val
       end
       
