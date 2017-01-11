@@ -2,7 +2,6 @@ module Crim::Http::Router
   include Crim::Exceptions
 
   class Route
-
     getter route
     getter method
     getter route_variables = [] of String
@@ -11,13 +10,12 @@ module Crim::Http::Router
     getter regex_data = {} of String => String
     getter default_data = {} of String => String
 
-    def initialize(
-      @route = "", 
-      @method = "get", 
-      default = {} of String => String, 
-      regex = {} of String => String
-    )
-      #default options
+    def initialize(@route = "",
+                   @method = "get",
+                   default = {} of String => String,
+                   regex = {} of String => String)
+                   
+      # default options
       @regex_data = regex
       @default_data = default
 
@@ -27,11 +25,11 @@ module Crim::Http::Router
 
       # check if route is empty and raise an error if true
       if @route.empty?
-        raise EmptyRouteException.new("Route %s was left empty")
+        raise EmptyRouteException.new "Route was left empty"
       end
 
       if !METHODS.includes?(@method.upcase.strip)
-        raise InvalidRouteMethodException.new(sprintf("Method (%s) isn't in the valid methods list: %s", @method, METHODS.join(", ")))
+        raise InvalidRouteMethodException.new "Method #{@method} isn't in the valid methods list: #{METHODS.join(", ")}"
       end
 
       self
@@ -42,7 +40,6 @@ module Crim::Http::Router
       if @regex_data.key_index(key).nil?
         @regex_data[key] = val
       end
-      
       self
     end
 
@@ -51,7 +48,6 @@ module Crim::Http::Router
       if @default_data.key_index(key).nil?
         @default_data[key] = val
       end
-      
       self
     end
 
@@ -64,6 +60,6 @@ module Crim::Http::Router
       # return route regular expressions
       parser.parse
     end
-  end #Router
+  end # Router
 
 end

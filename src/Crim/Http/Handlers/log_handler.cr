@@ -1,13 +1,13 @@
 require "http/server"
 
 module Crim::Http::Handlers
-
   # Used to catch runtime errors from our controller actions and log them
   # TODO: Finish this handler
   class LogHandler
     include HTTP::Handler
-    
-    def initialize(@file : String, @io : IO = STDOUT) end
+
+    def initialize(@file : String, @io : IO = STDOUT)
+    end
 
     # Todo, log errors to a file
     def call(context : HTTP::Server::Context)
@@ -21,5 +21,4 @@ module Crim::Http::Handlers
       end
     end
   end
-  
 end

@@ -1,7 +1,5 @@
 module Crim::Http::Router
-
   class RouteParser
-
     @default_regex_replacement = %q(\w+)
 
     getter regex_variables = {} of String => String
@@ -9,7 +7,7 @@ module Crim::Http::Router
 
     def initialize(@route = "", regex = {} of String => String)
       @regex_variables = regex
-      extract_variables()
+      extract_variables
     end
 
     private def extract_variables
@@ -17,7 +15,7 @@ module Crim::Http::Router
       @matched_variables = [] of String
 
       # start the process
-      extract_variables(@route)
+      extract_variables @route
     end
 
     # todo: refactor this
@@ -26,7 +24,7 @@ module Crim::Http::Router
         if !found[1]?.nil?
           @matched_variables << found[1] if !@matched_variables.includes?(found[1])
           if !found.not_nil!.post_match.empty?
-            extract_variables(found.post_match)
+            extract_variables found.post_match
           end
         end
       end
@@ -40,11 +38,11 @@ module Crim::Http::Router
 
       @matched_variables.each do |mv|
         rex = @regex_variables.fetch(mv, @default_regex_replacement)
-        route = route.sub(":" + mv, "(?<" + mv + ">" + rex + ")")
+        route = route.sub ":#{mv}", "(?<#{mv}>)#{rex}"
       end
 
       route
     end
-  end #RouteParser
+  end # RouteParser
 
 end

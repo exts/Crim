@@ -1,17 +1,17 @@
 require "http/server"
 
 module Crim::Http::Handlers
-
   include Crim::Http::Router
 
-  # `RouteHandler` is used to process our `RouteContainer` in order to 
+  # `RouteHandler` is used to process our `RouteContainer` in order to
   # attach a path to a action class (or controller).
-  # 
+  #
   # This handler should be called after any log middleware to capture any runtime errors.
   class RouteHandler
     include HTTP::Handler
 
-    def initialize(@container : RouteContainer) end
+    def initialize(@container : RouteContainer)
+    end
 
     # Default call method used in http handler
     def call(context : HTTP::Server::Context)
@@ -28,9 +28,9 @@ module Crim::Http::Handlers
       call_next(context)
     end
 
-    # This method takes the context, current route data & action data (NamedTuple containing an 
+    # This method takes the context, current route data & action data (NamedTuple containing an
     # `Crim::Http::Router::Action` and a string method, which can be nil) and attempts to check
-    # if our route and method matches the current route and http method then processes our action 
+    # if our route and method matches the current route and http method then processes our action
     # controller if it successful then processes the rest of the handlers in the array.
     protected def handle_route(context, route, action_data)
       if found = context.request.path.match /^#{route.parsed_route}$/
@@ -74,6 +74,5 @@ module Crim::Http::Handlers
       end
       controller
     end
-  
-  end #RouteHandler
+  end # RouteHandler
 end
