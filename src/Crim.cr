@@ -1,5 +1,9 @@
 require "./Globals"
 require "./Crim/*"
+require "./Crim/Exceptions/*"
+require "./Crim/Http/*"
+require "./Crim/Http/Router/*"
+require "./Crim/Http/Handlers/*"
 
 module Crim
 
