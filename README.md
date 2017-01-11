@@ -8,14 +8,18 @@ I made Crim to learn Crystal and it introduces me to a lot of different features
 
 Crim is in early stages so please bare with me while I get the base of the project complete before contributing or using this framework.
 
+## Installation
+
+Add the following to your dependencies
+
+    dependencies:
+      Crim:
+        github: exts/Crim
+        tag: 0.1.1
+
 ## Example Application
 
-    require "./src/Crim"
-    require "./src/Crim/*"
-    require "./src/Crim/Exceptions/*"
-    require "./src/Crim/Http/*"
-    require "./src/Crim/Http/Router/*"
-    require "./src/Crim/Http/Handlers/*"
+    require "Crim"
 
     include Crim::Http::Handlers
     include Crim::Http::Router
