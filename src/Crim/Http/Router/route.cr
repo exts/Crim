@@ -31,7 +31,7 @@ module Crim::Http::Router
       end
 
       if !METHODS.includes?(@method.upcase.strip)
-        raise EmptyRouteException.new(sprintf("Method (%s) isn't in the valid methods list: %s", @method, METHODS.join(", ")))
+        raise InvalidRouteMethodException.new(sprintf("Method (%s) isn't in the valid methods list: %s", @method, METHODS.join(", ")))
       end
 
       self
