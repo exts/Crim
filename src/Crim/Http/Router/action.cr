@@ -1,4 +1,3 @@
-
 module Crim::Http::Router
 
   abstract class Action

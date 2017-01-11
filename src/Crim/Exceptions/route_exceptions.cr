@@ -1,4 +1,3 @@
-
 module Crim::Exceptions
 
   # Exception for empty route strings

@@ -40,6 +40,31 @@ Add the following to your dependencies
     app.add_middleware RouteHandler.new routes
     app.run
 
+## Routes & Group Routes
+
+All routes require a route (`String`) and a `NamedTuple(controller: Action, action: String)` when being called. You also have optional parameters `default` and `regex`. Default allows you to force default values for named variables that don't match anything. You'd usually want to use it for optional parameters. The regex parameter allows you to force a named route variable to match your regular expression. So for instance you'd want only numbers for "page" you could do `{"page" => %q(\d+)}`. Currently the default & regex parameters are stored as a `Hash(String, String)`. I'm contemplating changing it to `Hash(String, String | Int32 | Float32)`, for now it seems fine for what we need.
+
+**Example of Group Routes**
+
+    routes = RouteContainer.new
+    routes.group "/admin", do |route|
+      route.group "/users", do |route|
+        route.any "/update/:id", {controller: ExampleController.new, action: "update"}
+      end
+    end
+
+_(Note: Group routes can be as deep as you want, but I wouldn't recommend it)_
+
+**Example use of default & regex**
+
+    routes = RouteContainer.new
+    routes.any "/post/:id[/:page]", {controller: ExampleController.new, action: nil}, default: {"page", "1"}
+
+or
+
+    routes = RouteContainer.new
+    routes.any "/post/:id[/:page]", {controller: ExampleController.new, action: nil}, {"id", %q(\d+)}, {"page", "1"}   
+
 ## Contributors
 
 - [[exts]](https://github.com/exts) Lamonte - creator, maintainer

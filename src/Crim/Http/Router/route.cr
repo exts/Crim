@@ -1,5 +1,3 @@
-
-
 module Crim::Http::Router
   include Crim::Exceptions
 
