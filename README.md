@@ -15,7 +15,7 @@ Add the following to your dependencies
     dependencies:
       Crim:
         github: exts/Crim
-        tag: 0.1.1
+        version: <=1.0.0
 
 ## Example Application
 
@@ -64,6 +64,12 @@ or
 
     routes = RouteContainer.new
     routes.any "/post/:id[/:page]", {controller: ExampleController.new, action: nil}, {"id", %q(\d+)}, {"page", "1"}   
+
+**Optional Routes**
+
+Crim offers the ability to have optional routes because we use a cheap solution on converting square brackets into optional non capturing groups `[]` => `(?:)?` which allows us to pretty much have infinite grouped optional parameters like so:
+
+`/route[/:example[/:sub_route[/:another_sub_route]]]`
 
 ## Contributors
 

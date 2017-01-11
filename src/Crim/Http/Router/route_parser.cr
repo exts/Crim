@@ -22,7 +22,7 @@ module Crim::Http::Router
 
     # todo: refactor this
     private def extract_variables(find : String)
-      if found = find.match /(?:\:([A-Za-z]+))/
+      if found = find.match /(?:\:([A-Za-z_]+))/
         if !found[1]?.nil?
           @matched_variables << found[1] if !@matched_variables.includes?(found[1])
           if !found.not_nil!.post_match.empty?
