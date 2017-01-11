@@ -1,0 +1,13 @@
+name: Crim
+version: 0.1.0
+
+authors:
+  - Lamonte <lamonteh2@gmail.com>
+
+targets:
+  Crim:
+    main: src/Crim.cr
+
+crystal: 0.20.3
+
+license: MIT
