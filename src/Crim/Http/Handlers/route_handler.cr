@@ -22,7 +22,6 @@ module Crim::Http::Handlers
         # make sure http method matches current route method
         if !current_route.nil? && context.request.method == current_route.method.upcase
           route_context = handle_route(context, current_route, action_data)
-          puts route_context
           return route_context if !route_context.nil?
         end
       end
