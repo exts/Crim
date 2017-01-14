@@ -57,7 +57,7 @@ module Crim
       override_middleware << Http::Handlers::RouteHandler.new @routes
 
       # add static file handler after the route handler
-      override_middleware << HTTP::StaticFileHandler.new @public_path
+      override_middleware << HTTP::StaticFileHandler.new @public_path if !@public_path.empty?
 
       # reassign our middleware handlers to be passed to the server
       @middleware = override_middleware
