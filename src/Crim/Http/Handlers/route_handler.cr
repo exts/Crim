@@ -21,7 +21,9 @@ module Crim::Http::Handlers
 
         # make sure http method matches current route method
         if !current_route.nil? && context.request.method == current_route.method.upcase
-          handle_route(context, current_route, action_data)
+          route_context = handle_route(context, current_route, action_data)
+          puts route_context
+          return route_context if !route_context.nil?
         end
       end
 
@@ -37,8 +39,10 @@ module Crim::Http::Handlers
         action = action_data[:action]?
         controller = parse_controller_params(found, action_data[:controller]?, route)
         context = handle_controller_action(controller, action, context)
-        call_next(context)
+        return context
       end
+
+      nil
     end
 
     # Inner method which assigns our matched action from the action data then attempts to check
@@ -47,6 +51,10 @@ module Crim::Http::Handlers
     protected def handle_controller_action(controller, action, context)
       # set current route action
       controller.set_current_action(action)
+
+      # set default response type and status code
+      context.response.status_code = 200
+      context.response.content_type = "text/html"
 
       # get action response if one and handle the context accordingly
       response = controller.action(context.request, context.response)
